@@ -1,0 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "Node.js & TypeScript",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"waderyan.gitblame"
+			],
+			"settings": {
+				"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": "always"
+				},
+				"eslint.validate": [
+					"javascript", 
+					"typescriptreact", 
+					"typescript", 
+					"react"
+			  ],
+  			"editor.tabSize": 2,
+ 				"editor.insertSpaces": false,
+				"editor.formatOnSave": true,
+				"workbench.colorCustomizations": {
+					"titleBar.activeBackground": "#19232e",
+					"titleBar.border": "#36475b",
+					"titleBar.activeForeground": "#f5e4d3",
+					"titleBar.inactiveBackground": "#19232e",
+					"titleBar.inactiveForeground": "#a1c0d9",
+					"activityBar.background": "#19232e",
+					"activityBar.foreground": "#d6a88f",
+					"activityBar.inactiveForeground": "#f5e4d3",
+					"activityBar.activeBorder": "#d6a88f",
+					"tab.activeBorderTop": "#d6a88f"
+				}
+			}
+		}
+	}
+}

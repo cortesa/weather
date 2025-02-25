@@ -84,14 +84,14 @@ export default tseslint.config(
 			"prefer-destructuring": [
 				"warn"
 			],
-			'space-infix-ops': 'error',
-			'@typescript-eslint/type-annotation-spacing': [
-				'error',
-				{
-					before: false,
-					after: true,
-				},
-			],
+			"space-infix-ops": "error",
+			// "type-annotation-spacing": [
+			// 	"error",
+			// 	{
+			// 		before: false,
+			// 		after: true,
+			// 	},
+			// ],
     },
   },
 )

@@ -59,7 +59,6 @@ class WeatherAPI {
 	async getWeatherByTxLocation(location: string) {
 		const _location = location.trim().replace(" ", "+")
 		const result = await this._public.get<WTTRMessageData>(`/${_location}?format=j1`)
-
 		return result || {}
 	}
 

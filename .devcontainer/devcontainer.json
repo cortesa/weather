@@ -12,6 +12,7 @@
 				"mike-co.import-sorter"
 			],
 			"settings": {
+				"workbench.editor.tabCloseButton": "left",
 				"editor.defaultFormatter": "dbaeumer.vscode-eslint",
 				"editor.codeActionsOnSave": {
 					"source.fixAll.eslint": "always"

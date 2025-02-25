@@ -32,58 +32,66 @@ export default tseslint.config(
       ],
       "no-multiple-empty-lines": [
 			"error",
-			{
-				"max": 1,
-				"maxEOF": 1
-			}
-		],
-    "indent": [
-			"error",
-			"tab",
-			{
-				"SwitchCase": 1
-			}
-		],
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
-		"max-len": [
-			"warn",
-			{
-				"code": 90,
-				"tabWidth": 2,
-				// "ignoreStrings": true,
-				"ignoreComments": true,
-				"ignoreTemplateLiterals": true
-			}
-		],
-    "quotes": [
-			"error",
-			"double",
-			{
-				"allowTemplateLiterals": true
-			}
-		],
-		"jsx-quotes": [
-			"error",
-			"prefer-double"
-		],
-		"semi": [
-			"error",
-			"never"
-		],
-		"eol-last": [
-			"error",
-			"always"
-		],
-		"multiline-ternary": [
-			"error",
-			"always-multiline"
-		],
-		"prefer-destructuring": [
-			"warn"
-		],
+				{
+					"max": 1,
+					"maxEOF": 1
+				}
+			],
+    	"indent": [
+				"error",
+				"tab",
+				{
+					"SwitchCase": 1
+				}
+			],
+			"linebreak-style": [
+				"error",
+				"unix"
+			],
+			"max-len": [
+				"warn",
+				{
+					"code": 150,
+					"tabWidth": 2,
+					// "ignoreStrings": true,
+					"ignoreComments": true,
+					"ignoreTemplateLiterals": true
+				}
+			],
+    	"quotes": [
+				"error",
+				"double",
+				{
+					"allowTemplateLiterals": true
+				}
+			],
+			"jsx-quotes": [
+				"error",
+				"prefer-double"
+			],
+			"semi": [
+				"error",
+				"never"
+			],
+			"eol-last": [
+				"error",
+				"always"
+			],
+			"multiline-ternary": [
+				"error",
+				"always-multiline"
+			],
+			"prefer-destructuring": [
+				"warn"
+			],
+			'space-infix-ops': 'error',
+			'@typescript-eslint/type-annotation-spacing': [
+				'error',
+				{
+					before: false,
+					after: true,
+				},
+			],
     },
   },
 )

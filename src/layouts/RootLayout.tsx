@@ -8,15 +8,19 @@ const queryClient = new QueryClient()
 export function RootLayout() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<div className="p-2 flex gap-2 text-blue-900">
+			{/* <div className="p-2 flex gap-2 text-blue-900">
 				<Link to="/" className="[&.active]:text-red-500">
 						Home
 				</Link>{" "}
-				<Link to="/about" className="[&.active]:text-green-500">
+				<a 
+					href="https://about.cortesa.net" 
+					className="[&.active]:text-green-500" 
+					target="_blank" 
+					rel="noopener noreferrer" >
 						About
-				</Link>
+				</a>
 			</div>
-			<hr />
+			<hr /> */}
 			<Outlet />
 			<TanStackRouterDevtools />
 			<ReactQueryDevtools initialIsOpen={false} />

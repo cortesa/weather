@@ -23,8 +23,8 @@ export function useNearestCity():AppPageData {
 	const nearestCondition = GeoLocationData?.nearest_area[0]
 	const nearestArea = nearestCondition?.areaName[0].value || ""
 
-	console.log('useNearestCity (sError, isLoading, nearestArea):', isError, isLoading, nearestArea)
 
+	
 	return {nearestArea, isLoading, isError}
 	
 }

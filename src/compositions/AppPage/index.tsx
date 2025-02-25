@@ -13,7 +13,13 @@ export function AppPage() {
 		setCity(nearestArea)
 	},[nearestArea])
 
-	console.log('asa:', !isLoading && isError && !city, !isLoading , isError , !city)
+	const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			setCity(inputCityValue);
+		}
+	};
+
+
 
 	return (
 		<div className={`
@@ -30,6 +36,7 @@ export function AppPage() {
 					className="flex-1 p-2 rounded-xl focus:outline-none text-lg border border-gray-300 shadow-inner text-indigo-500"
 					value={inputCityValue}
 					onChange={(e) => setInputCityValue(e.target.value)}
+					onKeyDown={handleKeyPress}
 				/>
 				<button
 					onClick={()=>setCity(inputCityValue)}

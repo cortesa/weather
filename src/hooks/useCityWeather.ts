@@ -1,4 +1,3 @@
-import useGeolocation from "./useGeoLocation"
 import { useWeather } from "./useWeahter"
 import { WTTRMessageData } from "../services/weatherAPI"
 import { getWeatherIcon } from "../utils/weatherIcons"

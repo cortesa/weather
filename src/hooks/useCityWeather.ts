@@ -19,8 +19,6 @@ type AppPageData = {
 const weatherData = (wData: WTTRMessageData | null | undefined) => {
 	const currentCondition = wData?.current_condition[0]
 
-	
-
 	const temperature = currentCondition?.temp_C || "--"
 	const weather = {
 		icon: getWeatherIcon(currentCondition?.weatherDesc[0].value),
@@ -31,7 +29,6 @@ const weatherData = (wData: WTTRMessageData | null | undefined) => {
 
 	return {temperature, weather, humidity, windSpeed}
 }
-
 
 export function useCityWeather({city}: AppPageDataParams):AppPageData {
 

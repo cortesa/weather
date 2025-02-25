@@ -85,13 +85,13 @@ export default tseslint.config(
 				"warn"
 			],
 			"space-infix-ops": "error",
-			// "type-annotation-spacing": [
-			// 	"error",
-			// 	{
-			// 		before: false,
-			// 		after: true,
-			// 	},
-			// ],
+			"key-spacing": [
+				"error",
+				{
+					beforeColon: false,
+					afterColon: true,
+				},
+			],
     },
   },
 )

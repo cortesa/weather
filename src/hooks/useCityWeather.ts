@@ -1,37 +1,55 @@
 import { useWeather } from "./useWeahter"
 import { WTTRMessageData } from "../services/weatherAPI"
-import { getWeatherIcon } from "../utils/weatherIcons"
+import { WEATHER_ICONS } from "../const/weathreIcons"
+import { WEATHER_CONDITIONS } from "../const/weatherConditions"
 type AppPageDataParams = {
 	city: string
 }
 
 type AppPageData = {
-	temperature: string
-	weather: {
+	current:{
+		date: string,
+		description: string
+		temperature: string
+		humidity: string
+		windSpeed: string
 		icon: string
-		descriptionCode: string
+	},
+	forecast:{
+		date: string,
+
 	}
-	humidity: string
-	windSpeed: string
 }
 
-const weatherData = (wData: WTTRMessageData | null | undefined) => {
-	const currentCondition = wData?.current_condition[0]
+const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => {
+	const currentWeather = wData?.current_condition[0]
+	const forecastWeather = wData?.weather
 
-	const temperature = currentCondition?.temp_C || "--"
-	const weather = {
-		icon: getWeatherIcon(currentCondition?.weatherDesc[0].value),
-		descriptionCode: currentCondition?.weatherCode || "--",
+	const current = {
+		date: new Date(currentWeather?.localObsDateTime || Date.now()).toLocaleDateString("es-ES", {
+			day: "2-digit",
+			month: "2-digit",
+		}),
+		description: WEATHER_CONDITIONS[currentWeather?.weatherCode]?.["es"].daycondition || "--",
+		temperature: currentWeather?.temp_C || "--",
+		humidity: currentWeather?.humidity || "--",
+		windSpeed: currentWeather?.windspeedKmph || "--",
+		icon: WEATHER_ICONS[currentWeather?.weatherCode]?.iconUrl,
 	}
-	const humidity = currentCondition?.humidity || "--"
-	const windSpeed = currentCondition?.windspeedKmph || "--"
+	const forecast = {
+		date: new Date(currentWeather?.localObsDateTime || Date.now()).toLocaleDateString("es-ES", {
+			day: "2-digit",
+			month: "2-digit",
+		}),
+	}
 
-	return {temperature, weather, humidity, windSpeed}
+	console.log("ACZ:", forecastWeather)
+
+	return {current, forecast}
 }
 
 export function useCityWeather({city}: AppPageDataParams):AppPageData {
-
-	const {data: cityData} = useWeather(city)
+	const {data: cityData} = useWeather({location: city})
 	const weatherCityData = weatherData(cityData)
 
 	return weatherCityData

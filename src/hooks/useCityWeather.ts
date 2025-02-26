@@ -16,9 +16,18 @@ type AppPageData = {
 		icon: string
 	},
 	forecast:{
-		date: string,
-
-	}
+		date: string;
+		minTempC: string;
+		maxTempC: string;
+		avgTempC: string;
+		hourly: {
+			time: string;
+			icon?: string;
+			windSpeed: string;
+			windDegree: string;
+			temperature: string;
+		}
+	}[]
 }
 
 const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => {
@@ -34,16 +43,30 @@ const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => 
 		temperature: currentWeather?.temp_C || "--",
 		humidity: currentWeather?.humidity || "--",
 		windSpeed: currentWeather?.windspeedKmph || "--",
+		windDegree: currentWeather?.winddirDegree || "",
 		icon: WEATHER_ICONS[currentWeather?.weatherCode]?.iconUrl,
 	}
-	const forecast = {
-		date: new Date(currentWeather?.localObsDateTime || Date.now()).toLocaleDateString("es-ES", {
-			day: "2-digit",
-			month: "2-digit",
-		}),
-	}
+	const forecast =  forecastWeather?.reduce((array, item)=>{
+		const hourly = item.hourly.map(hourData=>({
+			time: hourData.time,
+			icon: WEATHER_ICONS[hourData.weatherCode]?.iconUrl,
+			windSpeed: hourData.windspeedKmph,
+			windDegree: hourData.winddirDegree,
+			temperature: hourData.tempC,
+		}))
+		const dayWeather = {
+			date: new Date(item.date).toLocaleDateString("es-ES", {
+				day: "2-digit",
+				month: "2-digit",
+			}),
+			minTempC: item.mintempC,
+			maxTempC: item.maxtempC,
+			avgTempC: item.avgtempC,
+			hourly
+		}
 
-	console.log("ACZ:", forecastWeather)
+		return [...array, dayWeather]
+	},[])
 
 	return {current, forecast}
 }

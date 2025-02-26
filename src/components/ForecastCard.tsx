@@ -7,12 +7,29 @@ type ForecastCardProps = {
 }
 
 export function ForecastCard({city}:ForecastCardProps) {
-	const cityWeatherData = useCityWeather({city})
-	return (
-		<Section title="Forecast ">
-			ss
-			{/* <div className="mt-6 gap-5 grid grid-cols-[0.45fr_1fr] w-full">
-				<div className="flex flex-col justify-center items-center  min-w-[50px] border border-amber-600">
+	const {forecast} = useCityWeather({city})
+	console.log("ACZ1:", forecast)
+	return forecast && (
+		<Section>
+			<div className="">
+				<div className="border flex flex-row gap-5 relative justify-between items-top w-full">
+					<p className={`
+						relative -top-2.5 -left-3 
+						text-3xl font-bold 
+						px-2 pt-1 pb-1.5
+						border rounded-2xl border-white/40
+					bg-white/10
+					`}>
+						{forecast[0].date}
+					</p>
+					<div className="flex flex-row gap-2">
+						<p>Max:{forecast[0].maxTempC}º</p>
+						<p>Min:{forecast[0].minTempC}º</p>
+					</div>
+				</div>
+				<div className="border">jj</div>
+			</div>
+			{/*	<div className="flex flex-col justify-center items-center  min-w-[50px] border border-amber-600">
 					<img src={cityWeatherData.weather.icon} alt={cityWeatherData.weather.description} className="w-24 h-auto" />
 					<p className="text-xl">{cityWeatherData.weather.description}</p>
 					<p className="text-xl font-bold">🌡️ {cityWeatherData.temperature}°C</p>

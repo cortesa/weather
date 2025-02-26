@@ -49,7 +49,12 @@ export function AppPage() {
 			{isLoading && !isError && !city && <Geolocating/>}
 			{!isLoading && isError && !city && <div className="pt-6">Unable to retrieve location. Please enter a city</div>}
 			{city && <CityCard city={city}/>}
-			{city && <ForecastCard city={city}/>}
+			{city && (
+				<div className="mt-6 w-full max-w-2xl">
+					<p className="text-xl">Forecast</p>
+				</div>
+			)}
+			<ForecastCard city={city}/>
 		</div>
 	)
 };

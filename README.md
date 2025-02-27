@@ -34,7 +34,7 @@ If you want to create a production-ready build, run:
 yarn build
 ```
 
-This will generate an optimized version of the application in the `/dist` or `/build` folder.
+This will generate an optimized version of the application in the `/dist` folder.
 
 # Test specification
 ### Purpose

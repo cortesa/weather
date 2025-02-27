@@ -2,6 +2,7 @@ import { useCityWeather } from "../hooks/useCityWeather"
 import { capitalizeFirstLetter } from "../utils/CapitalizeFirstLetter"
 import { LoaderSpinner } from "./LoaderSpinner"
 import { Section } from "./Section"
+import { WindArrow } from "./WindArrow"
 
 type CityCardProps = {
 	city: string
@@ -17,7 +18,7 @@ export function CityCard({city}:CityCardProps) {
 					<div className={`
 						flex flex-col
 						absolute -top-2 -right-2 
-						text-3xl align-bottom font-bold 
+						text-2xl md:text-3xl align-bottom font-bold 
 						px-2 pt-1 pb-1.5 
 						border rounded-2xl
 						border-white/40
@@ -35,10 +36,14 @@ export function CityCard({city}:CityCardProps) {
 						}
 					</div>
 					<div className="flex flex-col justify-start items-start">
-						<p className="text-2xl font-bold">{capitalizeFirstLetter(current.description)}</p>
-						<p className="text-xl font-bold"><span className="text-xl font-light">Temp  </span>: {current.temperature}°</p>
-						<p className="text-xl font-semibold "><span className="text-xl font-light">Humidity </span>: {current.humidity}%</p>
-						<p className="text-xl font-semibold"><span className="text-xl font-light">Wind</span>: {current.windSpeed} km/h</p>
+						<p className="text-xl font-bold">{capitalizeFirstLetter(current.description)}</p>
+						<p className="text-xl font-bold"><span className="text-xl font-light">Temp: </span> {current.temperature}°</p>
+						<p className="text-xl font-semibold "><span className="text-xl font-light">Humidity: </span> {current.humidity}%</p>
+						<p className="flex flex-row gap-1 text-xl font-semibold">
+							<span className="text-xl font-light">Wind:</span>
+							{current.windSpeed} km/h
+							<WindArrow className="ml-2 w-7 fill-white stroke-white/40" direction={current.windDegree}/>
+						</p>
 					</div>
 				</div>
 			</div> 

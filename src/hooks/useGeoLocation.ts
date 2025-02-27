@@ -16,6 +16,7 @@ const useGeolocation = () => {
 					latitude: position.coords.latitude,
 					longitude: position.coords.longitude,
 				})
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			} catch (err: any) {
 				setError(err.message)
 			} finally {

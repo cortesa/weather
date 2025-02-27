@@ -1,4 +1,4 @@
-export type WTTRResponse<T = object> = (T | { error?: string }) | undefined
+export type WTTRResponse<T = unknown> = (T & { error?: string }) | undefined
 
 export type CurrentCondition = {
   FeelsLikeC: string;

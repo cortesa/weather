@@ -16,16 +16,16 @@ class WeatherAPI {
 		})
 	}
 
-	_handleAPIError(data: WTTRResponse<any> | undefined | null) {
-		if ((data as any)?.error) {
-			throw new Error((data as any)?.error || "An error occurred")
+	_handleAPIError(data: WTTRResponse<unknown> | undefined | null) {
+		if ((data )?.error) {
+			throw new Error((data)?.error || "An error occurred")
 		}
 	}
 
-	async _makeRequest<T = any>(
+	async _makeRequest<T = unknown>(
 		method: AxiosMethod,
 		url: string,
-		...args: any
+		...args: []
 	) {
 		try {
 			const { data } = await this.client.request<WTTRResponse<T>>({
@@ -36,22 +36,23 @@ class WeatherAPI {
 
 			this._handleAPIError(data)
 			return data as T
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			throw parseAxiosAPIError(err)
 		}
 	}
 
 	_public = {
-		get: <T>(url: string, ...args: any) => {
+		get: <T>(url: string, ...args: []) => {
 			return this._makeRequest<T>("get", url, ...args)
 		},
-		post: <T>(url: string, ...args: any) => {
+		post: <T>(url: string, ...args: []) => {
 			return this._makeRequest<T>("post", url, ...args)
 		},
-		put: <T>(url: string, ...args: any) => {
+		put: <T>(url: string, ...args: []) => {
 			return this._makeRequest<T>("put", url, ...args)
 		},
-		delete: <T>(url: string, ...args: any) => {
+		delete: <T>(url: string, ...args: []) => {
 			return this._makeRequest<T>("delete", url, ...args)
 		}
 	}

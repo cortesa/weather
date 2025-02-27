@@ -2,37 +2,43 @@ import { useWeather } from "./useWeahter"
 import { WTTRMessageData } from "../services/weatherAPI"
 import { WEATHER_ICONS } from "../const/weathreIcons"
 import { WEATHER_CONDITIONS } from "../const/weatherConditions"
+
 type AppPageDataParams = {
 	city: string
 }
 
 type AppPageData = {
-	current:{
+	current: {
 		date: string,
-		description: string
-		temperature: string
-		humidity: string
-		windSpeed: string
+		description: string,
+		temperature: string,
+		humidity: string,
+		windSpeed: string,
+		windDegree: number,
 		icon: string
 	},
-	forecast:{
-		date: string;
-		minTempC: string;
-		maxTempC: string;
-		avgTempC: string;
+	forecast: {
+		date: string,
+		weekDay: string,
+		minTempC: string,
+		maxTempC: string,
+		avgTempC: string,
 		hourly: {
-			time: string;
-			icon?: string;
-			windSpeed: string;
-			windDegree: string;
-			temperature: string;
-		}
+			time: string,
+			icon?: string,
+			description: string,
+			windSpeed: string,
+			windDegree: number,
+			temperature: string
+		}[]
 	}[]
 }
 
 const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => {
 	const currentWeather = wData?.current_condition[0]
 	const forecastWeather = wData?.weather
+
+	console.log("ACZ: forecastWeather", forecastWeather)
 
 	const current = {
 		date: new Date(currentWeather?.localObsDateTime || Date.now()).toLocaleDateString("es-ES", {
@@ -46,10 +52,11 @@ const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => 
 		windDegree: currentWeather?.winddirDegree || "",
 		icon: WEATHER_ICONS[currentWeather?.weatherCode]?.iconUrl,
 	}
-	const forecast =  forecastWeather?.reduce((array, item)=>{
+	const forecast =  forecastWeather?.reduce((array, item) => {
 		const hourly = item.hourly.map(hourData=>({
 			time: hourData.time,
 			icon: WEATHER_ICONS[hourData.weatherCode]?.iconUrl,
+			description: hourData.weatherDesc,
 			windSpeed: hourData.windspeedKmph,
 			windDegree: hourData.winddirDegree,
 			temperature: hourData.tempC,
@@ -59,6 +66,7 @@ const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => 
 				day: "2-digit",
 				month: "2-digit",
 			}),
+			weekDay: new Date(item.date).toLocaleDateString("en-US", { weekday: "short" }),
 			minTempC: item.mintempC,
 			maxTempC: item.maxtempC,
 			avgTempC: item.avgtempC,

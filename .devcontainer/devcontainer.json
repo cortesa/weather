@@ -5,7 +5,7 @@
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
 	"runArgs": [
 		"--name=weather",
-    "--rm"
+    	"--rm"
 	],
 	"customizations": {
 		"vscode": {

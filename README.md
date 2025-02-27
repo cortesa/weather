@@ -1,7 +1,12 @@
 # Weather App <small>(Front-end Technical Test)</small>
 
+
 ## Abstract
 This technical test consists of developing a **weather web application** that retrieves real-time weather data using the **wttr.in** API. The application should allow users to **search for a city** and display relevant weather information, including current conditions and upcoming forecasts.
+
+## Developer
+- Name: Cortesa
+- About: [https://about.cortesa.net](https://about.cortesa.net)
 
 ## Setup & Execution
 

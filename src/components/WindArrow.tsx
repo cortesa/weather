@@ -1,5 +1,3 @@
-import React from "react"
-
 type WindArrowProps = {
   direction: number;
   size?: number;

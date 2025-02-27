@@ -9,8 +9,9 @@ export function LoaderSpinner() {
 					<stop offset=".8" stopColor="#FFFFFF" stopOpacity=".3"></stop>
 					<stop offset="1" stopColor="#FFFFFF" stopOpacity="0"></stop>
 				</radialGradient>
+
 				<circle
-					transformOrigin="center"
+					transform="rotate(0 100 100)"
 					fill="none"
 					stroke="url(#a9)"
 					strokeWidth="15"
@@ -26,14 +27,15 @@ export function LoaderSpinner() {
 						attributeName="transform"
 						calcMode="spline"
 						dur="2s"
-						values="360;0"
+						values="0 100 100; -360 100 100"
 						keyTimes="0;1"
 						keySplines="0 0 1 1"
 						repeatCount="indefinite"
 					/>
 				</circle>
+
 				<circle
-					transformOrigin="center"
+					transform="rotate(0 100 100)"
 					fill="none"
 					opacity=".2"
 					stroke="#FFFFFF"

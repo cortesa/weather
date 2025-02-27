@@ -31,7 +31,7 @@ export function ForecastCard({city}:ForecastCardProps) {
 						<p>Min: {forecastDay.minTempC}º</p>
 					</div>
 					<div className={`
-						grid gap-1 
+						grid gap-1
 						grid-cols-4 sm:grid-cols-8 
 						w-full mt-1
 						`}>
@@ -40,7 +40,7 @@ export function ForecastCard({city}:ForecastCardProps) {
 								<div 
 									key={`hours-${index}`}
 									className={`
-									flex flex-col gap-1 
+									flex flex-col gap-1
 									justify-start items-center 
 									p-1 
 									border rounded-lg border-white/40

@@ -31,36 +31,39 @@ type AppPageData = {
 			windDegree: number,
 			temperature: string
 		}[]
-	}[]
+	}[] | []
 }
 
-const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => {
-	const currentWeather = wData?.current_condition[0]
+const weatherData = (wData: WTTRMessageData): AppPageData => {
+	const [currentWeather] = wData?.current_condition || []
 	const forecastWeather = wData?.weather
 
 	console.log("ACZ: forecastWeather", forecastWeather)
 
 	const current = {
-		date: new Date(currentWeather?.localObsDateTime || Date.now()).toLocaleDateString("es-ES", {
+		date: new Date(currentWeather.localObsDateTime || Date.now()).toLocaleDateString("es-ES", {
 			day: "2-digit",
 			month: "2-digit",
 		}),
-		description: WEATHER_CONDITIONS[currentWeather?.weatherCode]?.["es"].daycondition || "--",
+		description: WEATHER_CONDITIONS[currentWeather.weatherCode as keyof typeof WEATHER_CONDITIONS]?.["es"].daycondition || "--",
 		temperature: currentWeather?.temp_C || "--",
 		humidity: currentWeather?.humidity || "--",
 		windSpeed: currentWeather?.windspeedKmph || "--",
-		windDegree: currentWeather?.winddirDegree || "",
-		icon: WEATHER_ICONS[currentWeather?.weatherCode]?.iconUrl,
+		windDegree: Number(currentWeather?.winddirDegree || ""),
+		icon: WEATHER_ICONS[currentWeather.weatherCode as keyof typeof WEATHER_CONDITIONS]?.iconUrl,
 	}
-	const forecast =  forecastWeather?.reduce((array, item) => {
-		const hourly = item.hourly.map(hourData=>({
-			time: hourData.time,
-			icon: WEATHER_ICONS[hourData.weatherCode]?.iconUrl,
-			description: hourData.weatherDesc,
-			windSpeed: hourData.windspeedKmph,
-			windDegree: hourData.winddirDegree,
-			temperature: hourData.tempC,
-		}))
+	const forecast: AppPageData["forecast"] = forecastWeather?.reduce<AppPageData["forecast"]>((array, item) => {
+		const hourly = item.hourly.map(hourData=>{
+			const weatherCode = hourData.weatherCode as keyof typeof WEATHER_ICONS
+			return {
+				time: hourData.time,
+				icon: WEATHER_ICONS[weatherCode]?.iconUrl,
+				description: hourData.weatherDesc[0].value,
+				windSpeed: hourData.windspeedKmph,
+				windDegree: Number(hourData.winddirDegree  || ""),
+				temperature: hourData.tempC,
+			}
+		})
 		const dayWeather = {
 			date: new Date(item.date).toLocaleDateString("es-ES", {
 				day: "2-digit",
@@ -74,14 +77,27 @@ const weatherData = (wData: WTTRMessageData | null | undefined): AppPageData => 
 		}
 
 		return [...array, dayWeather]
-	},[])
+	},[]) || []
 
 	return {current, forecast}
 }
 
 export function useCityWeather({city}: AppPageDataParams):AppPageData {
 	const {data: cityData} = useWeather({location: city})
-	const weatherCityData = weatherData(cityData)
+	const weatherCityData = cityData 
+		? weatherData(cityData) 
+		: { 
+			current: {
+				date: "--",
+				description: "--",
+				temperature: "--",
+				humidity: "--",
+				windSpeed: "--",
+				windDegree: 0,
+				icon: ""
+			}, 
+			forecast: [] 
+		}
 
 	return weatherCityData
 	

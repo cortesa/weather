@@ -1,4 +1,4 @@
-import type { AxiosMethod } from "@/types"
+import type { AxiosMethod } from "../../types"
 import axios, { AxiosInstance } from "axios"
 import { WTTRMessageData, WTTRResponse } from "./types"
 import { parseAxiosAPIError } from "./utils"
